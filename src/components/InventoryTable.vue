@@ -4,8 +4,6 @@
     :headers="headers"
     :items="displayedProducts"
     :sort-by="[{ key: 'prod_id', order: 'asc' }]"
-    
-    
   >
     <template v-slot:top>
       <v-toolbar flat >
@@ -249,9 +247,7 @@ export default {
           // Handle error
           console.error('There was an error!', error);
         });
-
         this.closeDelete();
-
     },
 
     close() {
@@ -284,8 +280,6 @@ export default {
         });
 
         Object.assign(this.product[this.editedIndex], this.editedItem);
-
-
 
       } else {
 
