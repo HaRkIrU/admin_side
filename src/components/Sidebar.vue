@@ -62,7 +62,7 @@ watchEffect(() => {
           <span class="material-icons">medical_information</span>
           <span class="text">Consultation Records</span>
       </router-link>
-      
+    
         <div class="dropdown " @click="toggleDropdown" :class="{ 'open': isDropdownOpen }">
             <button class="dropbtn">
             <span class="material-icons">dvr</span>
@@ -77,7 +77,11 @@ watchEffect(() => {
             </transition>
             
         </div>
-    
+        <router-link class="button" to="/consultationrecords">
+            <span class="material-icons">medical_information</span>
+            <span class="text">Consultation Records</span>
+        </router-link>
+
         <router-link class="button" to="/announcement">
             <span class="material-icons">newspaper</span>
             <span class="text">Announcements</span>

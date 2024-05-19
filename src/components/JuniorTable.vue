@@ -23,27 +23,42 @@
 
         <v-dialog v-model="dialog" max-width="1000px">
           <v-card>
-            <v-card-title>
-              <span class="text-h6 m-2" style="color: #2F3F64">{{ formTitle }}</span>
+            <v-card-title class="d-flex justify-center">
+              <span class="text-h6 m-2" style="color: #2F3F64">Medical History</span>
             </v-card-title>
             <v-card-text>
-              <v-container>
-                <v-row dense>
-                  <v-col cols="12" md="3" sm="6">
-                    <v-text-field
-                      v-model="editedItem.student_lrn"
-                      label="LRN*"
-                      required
-                    ></v-text-field>
-                  </v-col>
-                  <!-- Other form fields go here -->
-                </v-row>
-              </v-container>
+              <v-data-table
+                :items="[editedItem]"
+                item-key="email"
+                hide-default-footer
+              >
+                <template v-slot:items="props">
+                  <td>{{ props.item.date }}</td>
+                  <td>{{ props.item.student_id }}</td>
+                  <td>{{ props.item.diagnosis }}</td>
+                  <td>{{ props.item.blood_pressure }}</td>
+                  <td>{{ props.item.pulse_rate }}</td>
+                  <td>{{ props.item.temperature }}</td>
+                  <td>{{ props.item.medicine }}</td>
+                  <td>{{ props.item.description }}</td>
+                </template>
+                <template v-slot:headers="props">
+                  <tr>
+                    <th>Date</th>
+                    <th>Student ID</th>
+                    <th>Diagnosis</th>
+                    <th>Blood Pressure</th>
+                    <th>Pulse Rate</th>
+                    <th>Temperature</th>
+                    <th>Medicine</th>
+                    <th>Description</th>
+                  </tr>
+                </template>
+              </v-data-table>
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue-darken-1" variant="text" @click="close">Cancel</v-btn>
-              <v-btn color="blue-darken-1" variant="text" @click="save">Save</v-btn>
+              <v-btn color="blue-darken-1" variant="text" @click="close">Close</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -80,6 +95,9 @@
 </template>
 
 <script>
+
+import axios from 'axios';
+
 export default {
   data: () => ({
     search: '',
@@ -91,72 +109,53 @@ export default {
       { title: 'LRN', key: 'student_lrn' },
       { title: 'Grade Level', key: 'grade_level' },
     ],
-    students: [],
+    students: [
+      {
+    first_name: 'John',
+    middle_name: 'Doe',
+    last_name: 'Smith',
+    extension: '',
+    grade_level: '10',
+    student_lrn: '1234567890',
+    student_id: '2021001',
+  },
+    ],
     editedIndex: -1,
     editedItem: {
-      student_id: '',
-      student_lrn: '',
-      grade_level: '',
-      strand: '',
-      email: '',
-      first_name: '',
-      middle_name: '',
-      last_name: '',
-      extension: '',
-      sex_at_birth: '',
-      birth_date: '',
-      birth_place: '',
-      civil_status: '',
-      citizenship: '',
-      religion: '',
-      street: '',
-      barangay: '',
-      city: '',
-      province: '',
-      region: '',
-      zip_code: '',
+      date: '', 
+      diagnosis: '',
+      blood_pressure: '',
+      pulse_rate: '',
+      temperature: '',
+      medicine: '',
+      description: ''
     },
     defaultItem: {
-      student_id: '',
-      student_lrn: '',
-      grade_level: '',
-      strand: '',
-      email: '',
-      first_name: '',
-      middle_name: '',
-      last_name: '',
-      extension: '',
-      sex_at_birth: '',
-      birth_date: '',
-      birth_place: '',
-      civil_status: '',
-      citizenship: '',
-      religion: '',
-      street: '',
-      barangay: '',
-      city: '',
-      province: '',
-      region: '',
-      zip_code: '',
+      date: '',
+      diagnosis: '',
+      blood_pressure: '',
+      pulse_rate: '',
+      temperature: '',
+      medicine: '',
+      description: ''
     },
   }),
 
   computed: {
     formTitle() {
       return this.editedIndex === -1 ? 'Add Student' : 'Edit Student Information';
-    },
-    displayedStudents() {
-      const searchTerm = this.search.toLowerCase();
-      return this.students.filter((student) => {
-        const fullName = `${student.first_name} ${student.middle_name} ${student.last_name} ${student.extension}`.toLowerCase();
-        return Object.values(student).some(
-          (value) =>
-            typeof value === 'string' && value.toLowerCase().includes(searchTerm)
-        ) || fullName.includes(searchTerm);
-      });
-    },
+    },  
+  displayedStudents() {
+    const searchTerm = this.search.toLowerCase();
+    return this.students.filter((student) => {
+      const fullName = `${student.first_name} ${student.middle_name} ${student.last_name} ${student.extension}`.toLowerCase();
+      return Object.values(student).some(
+        (value) =>
+          typeof value === 'string' && value.toLowerCase().includes(searchTerm)
+      ) || fullName.includes(searchTerm);
+    });
   },
-
+},
   watch: {
     dialog(val) {
       val || this.close();
@@ -172,105 +171,45 @@ export default {
 
   methods: {
     initialize() {
-      this.students = [
-        {
-          student_id: '2021001',
-          student_lrn: '1234567890',
-          grade_level: '10',
-          strand: 'STEM',
-          email: 'john.doe@example.com',
-          first_name: 'John',
-          middle_name: '',
-          last_name: 'Doe',
-          extension: '',
-          sex_at_birth: 'Male',
-          birth_date: '1999-05-15',
-          birth_place: 'New York',
-          civil_status: 'Single',
-          citizenship: 'American',
-          religion: 'Christianity',
-          street: 'Main Street',
-          barangay: 'San Juan',
-          city: 'Makati',
-          province: 'Metro Manila',
-          region: 'National Capital Region (NCR)',
-          zip_code: '1234',
-        },
-        {
-          student_id: '2021002',
-          student_lrn: '0987654321',
-          grade_level: '11',
-          strand: 'ABM',
-          email: 'jane.smith@example.com',
-          first_name: 'Jane',
-          middle_name: 'Elizabeth',
-          last_name: 'Smith',
-          extension: '',
-          sex_at_birth: 'Female',
-          birth_date: '2000-03-25',
-          birth_place: 'Los Angeles',
-          civil_status: 'Single',
-          citizenship: 'American',
-          religion: 'Christianity',
-          street: 'Oak Avenue',
-          barangay: 'San Antonio',
-          city: 'Los Angeles',
-          province: 'California',
-          region: 'California',
-          zip_code: '90001',
-        },
-        {
-          student_id: '2021003',
-          student_lrn: '1234567890',
-          grade_level: '10',
-          strand: 'STEM',
-          email: 'john.johnson@example.com',
-          first_name: 'John',
-          middle_name: 'William',
-          last_name: 'Johnson',
-          extension: '',
-          sex_at_birth: 'Male',
-          birth_date: '2001-02-15',
-          birth_place: 'Chicago',
-          civil_status: 'Single',
-          citizenship: 'American',
-          religion: 'Christianity',
-          street: 'Maple Street',
-          barangay: 'San Andres',
-          city: 'Chicago',
-          province: 'Illinois',
-          region: 'Illinois',
-          zip_code: '60601',
-        },
-        // Add more students here...
-        {
-          student_id: '2021004',
-          student_lrn: '0987654321',
-          grade_level: '11',
-          strand: 'ABM',
-          email: 'mary.brown@example.com',
-          first_name: 'Mary',
-          middle_name: 'Ann',
-          last_name: 'Brown',
-          extension: '',
-          sex_at_birth: 'Female',
-          birth_date: '2000-07-10',
-          birth_place: 'Houston',
-          civil_status: 'Single',
-          citizenship: 'American',
-          religion: 'Christianity',
-          street: 'Pine Street',
-          barangay: 'San Pedro',
-          city: 'Houston',
-          province: 'Texas',
-          region: 'Texas',
-          zip_code: '77001',
-        },
-      ];
+<<<<<<< HEAD
+  this.students = [
+    {
+      date: '12/23/25',
+      student_id: '2021004',
+      diagnosis: 'Flu',
+      blood_pressure: '120/60',
+      pulse_rate: '60 bpm',
+      temperature: '37',
+      medicine: 'Paracetamol',
+      description: 'Early Dismissal',
+=======
+
+      axios.get('http://127.0.0.1:8888/api/student')
+        .then(response => {
+          // Handle successful response
+        let all_students = response.data;
+        var juniors = all_students.filter(function (el) {
+          return el.grade_level <= 10;
+        });
+
+        this.students = juniors;
+          console.log(response.data);
+        })
+        .catch(error => {
+          // Handle error
+          console.error('There was an error!', error);
+      });
+
+>>>>>>> 99edf950ab6fe4be87f9776240f488e34a9f5ca2
     },
+    // Add more medical history entries here...
+  ];
+},
     editItem(item) {
       this.editedIndex = this.students.indexOf(item);
       this.editedItem = Object.assign({}, item);
+      this.editedMedicalHistory = {
+  };
       this.dialog = true;
     },
     deleteItem(item) {

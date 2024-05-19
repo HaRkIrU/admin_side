@@ -9,7 +9,9 @@
   >
     <template v-slot:top >
       <v-toolbar flat >
+
         <v-toolbar-title class="text-h6 font-weight-black " style="color: #2F3F64">Consultation Records</v-toolbar-title>
+
         <!-- <v-divider class="mx-2" inset vertical></v-divider> -->
 
         <v-text-field
@@ -24,6 +26,7 @@
         single-line
       ></v-text-field>
       
+
         <v-dialog v-model="dialog" max-width="1000px" class="custom-dialog">
           
           <template v-slot:activator="{ props }">
@@ -31,6 +34,7 @@
           </template>
           
           <v-card>
+
             <v-card-title ><span class="text-h6 m-2" style="color: #2F3F64"  >{{ formTitle }}</span></v-card-title>
             <v-card-text > 
               <v-container >
@@ -40,7 +44,7 @@
           </v-col>
 
           <v-col cols="12" md="4" sm="6">
-            <v-text-field v-model="editedItem.diagnosis" label="Diagnosis*" required></v-text-field>
+            <v-text-field v-model="editedItem.complaint" label="Diagnosis*" required></v-text-field>
           </v-col>
 
           <v-col cols="12" md="4" sm="6">
@@ -52,15 +56,15 @@
           </v-col>
 
           <v-col cols="12" md="4" sm="6">
-            <v-text-field v-model="editedItem.temperature" label="Temperature*" required></v-text-field>
+            <v-text-field v-model="editedItem.oxygen_sat" label="Oxygen Sat*" required></v-text-field>
           </v-col>
 
           <v-col cols="12" md="4" sm="6">
-            <v-text-field v-model="editedItem.prod_name" label="Product Name*" required></v-text-field>
+            <v-text-field v-model="editedItem.temp" label="Temperature*" required></v-text-field>
           </v-col>
 
           <v-col cols="12" md="4" sm="6">
-            <v-text-field v-model="editedItem.date" label="Date*" required></v-text-field>
+            <v-text-field v-model="editedItem.treatment" label="Medicine Given" required></v-text-field>
           </v-col>
 
           <v-col cols="12" md="4" sm="6">
@@ -70,6 +74,7 @@
           <v-col cols="12" md="4" sm="6">
             <v-text-field v-model="editedItem.time_out" label="Time Out*" required></v-text-field>
           </v-col>
+
                 
           </v-row>
               </v-container>
@@ -97,16 +102,18 @@
     <template v-slot:item="{ item }">
       <tr>
         <td>{{ item.student_id }}</td>
-        <td>{{ item.diagnosis }}</td>
+        <td>{{ item.complaint }}</td>
+        <td>{{ item.medicine_id }}</td>
         <td>{{ item.blood_pressure }}</td>
         <td>{{ item.pulse_rate }}</td>
-        <td>{{ item.temperature }}</td>
-        <td>{{ item.prod_name }}</td>
-        <td>{{ item.date }}</td>
+        <td>{{ item.oxygen_sat }}</td>
+        <td>{{ item.temp }}</td>
+        <td>{{ item.treatment }}</td>
         <td>{{ item.time_in }}</td>
         <td>{{ item.time_out }}</td>
         <td>
           <v-icon class="me-2" size="small" style="color: #2F3F64" @click="editItem(item)">mdi-pencil</v-icon>
+
           <v-icon size="small" style="color: #2F3F64" @click="deleteItem(item)">mdi-delete</v-icon>
         </td>
       </tr>
@@ -118,7 +125,7 @@
 </template>
 
 <script>
-
+import axios from 'axios';
 export default {
   
   data: () => ({
@@ -127,39 +134,57 @@ export default {
     dialogDelete: false,
     headers: [
       { title: 'Student ID', align: 'start', key:'student_id'},
+<<<<<<< HEAD
       { title: 'Diagnosis', key: 'diagnosis' },
       { title: 'BP', key: 'blood_pressure' },
-      { title: 'PL', key: 'pulse_rate' },
+      { title: 'PR', key: 'pulse_rate' },
       { title: 'Temp', key: 'temperature' },
       { title: 'Medicine', key: 'prod_name' },  
       { title: 'Date', key: 'date' },
       { title: 'Time-In', key: 'time_in' },
       { title: 'Time-Out', key: 'time_out' },
+=======
+      { title: 'Diagnosis'},
+      { title: 'Medicine' },  
+      { title: 'Blood Pressure' }, 
+      { title: 'Pulse Rate' },   
+      { title: 'Oxygen Sat' },   
+      { title: 'Temperature' },   
+      { title: 'Treatment' },  
+      { title: 'Time-In' },
+      { title: 'Time-Out' },
+>>>>>>> 99edf950ab6fe4be87f9776240f488e34a9f5ca2
       { title: 'Actions', sortable: false }, 
     ],
-    log: [],
+    logs: [],
     editedIndex: -1,
     editedItem: {
+      complaint: '',
+      medicine_id: '',
       student_id: '',
-      diagnosis: '',
+      treatment: '',
       blood_pressure: '',
       pulse_rate: '',
-      temperature: '',
+      oxygen_sat: '',
+      temp: '',
       prod_name: '',
-      date: '',
       time_in: '',
       time_out: '',
+      is_timeout: '',
     },
     defaultItem: {
+      complaint: '',
+      medicine_id: '',
       student_id: '',
-      diagnosis: '',
+      treatment: '',
       blood_pressure: '',
       pulse_rate: '',
-      temperature: '',
+      oxygen_sat: '',
+      temp: '',
       prod_name: '',
-      date: '',
       time_in: '',
       time_out: '',
+      is_timeout: '',
     },
     
   }),
@@ -170,7 +195,7 @@ export default {
     },
     displayedLogs() {
       const searchTerm = this.search.toLowerCase(); // Convert search input to lowercase for case-insensitive comparison
-    return this.log.filter(log =>
+    return this.logs.filter(log =>
       Object.values(log).some(value =>
         typeof value === 'string' && value.toLowerCase().includes(searchTerm)
     )
@@ -188,87 +213,52 @@ export default {
   },
 
   created() {
+
     this.initialize();
   },
 
   methods: {
     initialize() {
-      this.log = [
-        { 
-      student_id: '202111003',
-      diagnosis: 'Cancer',
-      blood_pressure: '120/60',
-      pulse_rate: '80',
-      temperature: '36',
-      prod_name: 'Chemotherapy Pills',
-      date: '12/21/03',
-      time_in: '8:00am',
-      time_out: '11:00am',
-      
 
-    },
-    { 
-      student_id: '202111004',
-      diagnosis: 'Ligma',
-      blood_pressure: '120/60',
-      pulse_rate: '80',
-      temperature: '36',
-      prod_name: 'Chemotherapy Pills',
-      date: '12/22/03',
-      time_in: '3:00am',
-      time_out: '5:00am',
-    },
-    { 
-      student_id: '202111005',
-      diagnosis: 'Diabetes',
-      blood_pressure: '120/60',
-      pulse_rate: '80',
-      temperature: '36',
-      prod_name: 'Chemotherapy Pills',
-      date: '12/23/03',
-      time_in: '1:00am',
-      time_out: '2:00am',
-    },
-    { 
-      student_id: '202111006',
-      diagnosis: 'Diarrhea',
-      blood_pressure: '120/60',
-      pulse_rate: '80',
-      temperature: '36',
-      prod_name: 'Chemotherapy Pills',
-      date: '12/25/03',
-      time_in: '7:00am',
-      time_out: '8:00am',
-    },
-    { 
-      student_id: '202111007',
-      diagnosis: 'Aids',
-      blood_pressure: '120/60',
-      pulse_rate: '80',
-      temperature: '36',
-      prod_name: 'Chemotherapy Pills',
-      date: '12/24/03',
-      time_in: '5:00am',
-      time_out: '6:00am',
-    },
-
-      ];
+      axios.get('http://127.0.0.1:8000/api/consultation-records')
+        .then(response => {
+          // Handle successful response
+          this.logs = response.data;
+          console.log(response.data);
+        })
+        .catch((error) => {
+          // Handle error
+          console.error('There was an error!', error);
+      });
   },
 
     editItem(item) {
-      this.editedIndex = this.log.indexOf(item);
+      this.editedIndex = this.logs.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
 
     deleteItem(item) {
-      this.editedIndex = this.log.indexOf(item);
+      this.editedIndex = this.logs.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialogDelete = true;
+      this.id = item.id;
     },
 
     deleteItemConfirm() {
-      this.log.splice(this.editedIndex, 1);
+      this.logs.splice(this.editedIndex, 1);
+
+        // axios
+        // .delete("http://127.0.0.1:8000/api/consultation-records/" + this.id)
+        // .then((response) => {
+        //   this.initialize();
+        // })
+        // .catch((error) => {
+        //   // Handle error
+        //   console.error("There was an error!", error);
+        // });
+
+
       this.closeDelete();
     },
 
@@ -290,8 +280,33 @@ export default {
 
     save() {
       if (this.editedIndex > -1) {
-        Object.assign(this.students[this.editedIndex], this.editedItem);
+        console.log(this.editedItem);
+
+        axios
+          .put(
+            "http://127.0.0.1:8000/api/consultation-records/" + this.editedItem.id,
+            this.editedItem
+          )
+          .then((response) => {
+            this.initialize();
+          })
+          .catch((error) => {
+            // Handle error
+            console.error("There was an error!", error);
+          });
+
+
+        Object.assign(this.logs[this.editedIndex], this.editedItem);
       } else {
+
+        axios.post('http://127.0.0.1:8000/api/consultation-records', this.editedItem)
+        .then(response => {
+          this.initialize();
+        }).catch(error => {
+          // Handle error
+          console.error('There was an error!', error);
+        });
+
         this.logs.push(this.editedItem);
       }
       this.close();
