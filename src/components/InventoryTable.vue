@@ -4,13 +4,13 @@
     :headers="headers"
     :items="displayedProducts"
     :sort-by="[{ key: 'prod_id', order: 'asc' }]"
+    
+    
   >
     <template v-slot:top>
-      <v-toolbar flat>
-        <v-toolbar-title class="text-h6 font-weight-black" style="color: #2f3f64"
-          >Inventory Table</v-toolbar-title
-        >
-        <!-- <v-divider class="mx-2" inset vertical></v-divider> -->
+      <v-toolbar flat >
+        <v-toolbar-title class="text-h6 font-weight-black " style="color: #2F3F64">Inventory Table</v-toolbar-title>
+       <!-- <v-divider class="mx-2" inset vertical></v-divider> -->
 
         <v-text-field
           v-model="search"
@@ -41,48 +41,70 @@
               formTitle
             }}</v-card-title>
             <v-divider :thickness="2"></v-divider>
-            <v-card-text>
-              <v-container>
-                <v-row dense>
-                  <v-col cols="12" md="3" sm="6">
-                    <v-text-field
-                      v-model="editedItem.medicine_name"
-                      label="Product Name*"
-                      required
-                    ></v-text-field>
-                  </v-col>
+            <v-card-text > 
+              <v-container >
+                <v-row dense >
+                  <v-col
+                  cols="12"
+                  md="3"
+                  sm="6"
+                >
+                  <v-text-field
+                    v-model="editedItem.medicine_name"
+                    label="Product Name*"
+                    required
+                  ></v-text-field>
+                </v-col>
+                
+                <v-col
+                  cols="12"
+                  md="3"
+                  sm="12"
+                >
+                  <v-text-field
+                    v-model="editedItem.quantity"
+                    label="Quantity*"
+                    required
+                  ></v-text-field>
+                </v-col>
 
-                  <v-col cols="12" md="3" sm="12">
-                    <v-text-field
-                      v-model="editedItem.quantity"
-                      label="Quantity*"
-                      required
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" md="3" sm="12">
-                    <v-text-field
-                      v-model="editedItem.unit"
-                      label="Unit*"
-                      required
-                    ></v-text-field>
-                  </v-col>
+                <v-col
+                  cols="12"
+                  md="3"
+                  sm="12"
+                >
+                  <v-text-field
+                    v-model="editedItem.unit"
+                    label="Unit*"
+                    required
+                  ></v-text-field>
+                </v-col>
+                
+                <v-col
+                  cols="12"
+                  md="3"
+                  sm="12"
+                >
+                  <v-text-field
+                    v-model="editedItem.size"
+                    label="Size*"
+                    required
+                  ></v-text-field>
+                </v-col>
 
-                  <v-col cols="12" md="3" sm="12">
-                    <v-text-field
-                      v-model="editedItem.size"
-                      label="Size*"
-                      required
-                    ></v-text-field>
-                  </v-col>
-
-                  <v-col cols="12" md="4" sm="6">
-                    <v-text-field
-                      v-model="editedItem.expiration_date"
-                      label="Expiration*"
-                      required
-                    ></v-text-field>
-                  </v-col>
-                </v-row>
+                <v-col
+                  cols="12"
+                  md="4"
+                  sm="6"
+                >
+                  <v-text-field
+                    v-model="editedItem.expiration_date"
+                    label="Expiration*"
+                    required
+                  ></v-text-field>
+                </v-col>
+        
+          </v-row>
               </v-container>
             </v-card-text>
             <v-card-actions>
@@ -113,27 +135,22 @@
     </template>
     <template v-slot:item="{ item }">
       <tr>
+<<<<<<< HEAD
         <td class="text-center">{{ item.medicine_id }}</td>
         <td class="text-center">{{ item.medicine_name }}</td>
         <td class="text-center">{{ item.unit }}</td>
         <td class="text-center">{{ item.size }}</td>
         <td class="text-center">{{ item.quantity }}</td>
         <td class="text-center">{{ item.expiration_date }}</td>
-        <td class="text-center">
-          <v-icon class="me-2" size="small" style="color: #2f3f64" @click="editItem(item)"
-            >mdi-pencil
-          </v-icon>
-          <v-icon size="small" style="color: #2f3f64" @click="deleteItem(item)"
-            >mdi-delete
-          </v-icon>
-        </td>
+        <td class="text-center"> <v-icon class="me-2" size="small" style="color: #2F3F64" @click="editItem(item)">mdi-pencil </v-icon> <v-icon size="small" style="color: #2F3F64" @click="deleteItem(item)">mdi-delete </v-icon> </td>
+         
       </tr>
     </template>
   </v-data-table>
 </template>
 
 <script>
-import axios from "axios";
+import axios from 'axios';
 export default {
   data: () => ({
     search: "",
@@ -151,20 +168,20 @@ export default {
     product: [],
     editedIndex: -1,
     editedItem: {
-      medicine_id: "",
-      medicine_name: "",
-      unit: "",
-      size: "",
-      quantity: "",
-      expiration_date: "",
+      medicine_id: '',
+      medicine_name: '',
+      unit: '',
+      size: '',
+      quantity: '',
+      expiration_date: '',
     },
     defaultItem: {
-      medicine_id: "",
-      medicine_name: "",
-      unit: "",
-      size: "",
-      quantity: "",
-      expiration_date: "",
+      medicine_id: '',
+      medicine_name: '',
+      unit: '',
+      size: '',
+      quantity: '',
+      expiration_date: '',
     },
   }),
 
@@ -197,39 +214,44 @@ export default {
 
   methods: {
     initialize() {
-      axios
-        .get("http://127.0.0.1:8000/api/medicines")
-        .then((response) => {
+      axios.get('http://127.0.0.1:8000/api/medicines')
+        .then(response => {
           // Handle successful response
           this.product = response.data;
           console.log(response.data);
         })
         .catch((error) => {
           // Handle error
-          console.error("There was an error!", error);
-        });
-      this.product.forEach((product) => {
-        if ((product.qty = 0)) {
-          // Remove the strand property
-          product.qty = "Out of Stock";
-        }
+          console.error('There was an error!', error);
+      });
+      this.product.forEach(product => {
+          if (product.qty = 0) {
+              // Remove the strand property
+              product.qty = "Out of Stock";
+          }
       });
     },
 
     editItem(item) {
+
       this.editedIndex = this.product.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
+      
     },
 
     deleteItem(item) {
       this.editedIndex = this.product.indexOf(item);
+<<<<<<< HEAD
       this.medicine_id = item.medicine_id;
+=======
+>>>>>>> origin/main
       this.editedItem = Object.assign({}, item);
       this.dialogDelete = true;
     },
 
     deleteItemConfirm() {
+      
       this.product.splice(this.editedIndex, 1);
 
       axios
@@ -241,7 +263,9 @@ export default {
           // Handle error
           console.error("There was an error!", error);
         });
-      this.closeDelete();
+
+        this.closeDelete();
+
     },
 
     close() {
@@ -261,6 +285,7 @@ export default {
     },
 
     save() {
+
       if (this.editedIndex > -1) {
         axios
           .put(
@@ -276,16 +301,19 @@ export default {
           });
 
         Object.assign(this.product[this.editedIndex], this.editedItem);
+
+
+
       } else {
-        axios
-          .post("http://127.0.0.1:8000/api/medicines", this.editedItem)
-          .then((response) => {
-            this.initialize();
-          })
-          .catch((error) => {
-            // Handle error
-            console.error("There was an error!", error);
-          });
+
+        axios.post('http://127.0.0.1:8000/api/medicines', this.editedItem)
+        .then(response => {
+          this.initialize();
+        }).catch(error => {
+          // Handle error
+          console.error('There was an error!', error);
+        });
+
       }
       this.close();
     },

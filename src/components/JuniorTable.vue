@@ -80,8 +80,11 @@
 </template>
 
 <script>
+<<<<<<< HEAD
 import axios from 'axios';
 
+=======
+>>>>>>> origin/main
 export default {
   data: () => ({
     search: '',
@@ -174,6 +177,7 @@ export default {
 
   methods: {
     initialize() {
+<<<<<<< HEAD
 
 
 
@@ -193,6 +197,103 @@ export default {
           console.error('There was an error!', error);
       });
 
+=======
+      this.students = [
+        {
+          student_id: '2021001',
+          student_lrn: '1234567890',
+          grade_level: '10',
+          strand: 'STEM',
+          email: 'john.doe@example.com',
+          first_name: 'John',
+          middle_name: '',
+          last_name: 'Doe',
+          extension: '',
+          sex_at_birth: 'Male',
+          birth_date: '1999-05-15',
+          birth_place: 'New York',
+          civil_status: 'Single',
+          citizenship: 'American',
+          religion: 'Christianity',
+          street: 'Main Street',
+          barangay: 'San Juan',
+          city: 'Makati',
+          province: 'Metro Manila',
+          region: 'National Capital Region (NCR)',
+          zip_code: '1234',
+        },
+        {
+          student_id: '2021002',
+          student_lrn: '0987654321',
+          grade_level: '11',
+          strand: 'ABM',
+          email: 'jane.smith@example.com',
+          first_name: 'Jane',
+          middle_name: 'Elizabeth',
+          last_name: 'Smith',
+          extension: '',
+          sex_at_birth: 'Female',
+          birth_date: '2000-03-25',
+          birth_place: 'Los Angeles',
+          civil_status: 'Single',
+          citizenship: 'American',
+          religion: 'Christianity',
+          street: 'Oak Avenue',
+          barangay: 'San Antonio',
+          city: 'Los Angeles',
+          province: 'California',
+          region: 'California',
+          zip_code: '90001',
+        },
+        {
+          student_id: '2021003',
+          student_lrn: '1234567890',
+          grade_level: '10',
+          strand: 'STEM',
+          email: 'john.johnson@example.com',
+          first_name: 'John',
+          middle_name: 'William',
+          last_name: 'Johnson',
+          extension: '',
+          sex_at_birth: 'Male',
+          birth_date: '2001-02-15',
+          birth_place: 'Chicago',
+          civil_status: 'Single',
+          citizenship: 'American',
+          religion: 'Christianity',
+          street: 'Maple Street',
+          barangay: 'San Andres',
+          city: 'Chicago',
+          province: 'Illinois',
+          region: 'Illinois',
+          zip_code: '60601',
+        },
+        // Add more students here...
+        {
+          student_id: '2021004',
+          student_lrn: '0987654321',
+          grade_level: '11',
+          strand: 'ABM',
+          email: 'mary.brown@example.com',
+          first_name: 'Mary',
+          middle_name: 'Ann',
+          last_name: 'Brown',
+          extension: '',
+          sex_at_birth: 'Female',
+          birth_date: '2000-07-10',
+          birth_place: 'Houston',
+          civil_status: 'Single',
+          citizenship: 'American',
+          religion: 'Christianity',
+          street: 'Pine Street',
+          barangay: 'San Pedro',
+          city: 'Houston',
+          province: 'Texas',
+          region: 'Texas',
+          zip_code: '77001',
+        },
+      ];
+>>>>>>> origin/main
     },
     editItem(item) {
       this.editedIndex = this.students.indexOf(item);
