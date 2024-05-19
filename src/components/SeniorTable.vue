@@ -25,11 +25,11 @@
       ></v-text-field>
       
         <v-dialog v-model="dialog" max-width="1000px">
-          
+      <!--
           <template v-slot:activator="{ props }">
             <v-btn class="mb-2 rounded-l	" color="primary" dark v-bind="props" prepend-icon="mdi-plus">Add Record</v-btn>
           </template>
-          
+        -->
           <v-card >
             <v-card-title ><span class="text-h6 m-2" style="color: #2F3F64"  >{{ formTitle }}</span></v-card-title>
             <v-card-text > 
@@ -290,10 +290,6 @@
         <td>{{ item.student_lrn }}</td>
         <td>{{ item.grade_level }}</td>
         <td>{{ item.strand }}</td>
-        <td>
-          <v-icon class="me-2" size="small" style="color: #2F3F64" @click="editItem(item)">mdi-pencil</v-icon>
-          <v-icon size="small" style="color: #2F3F64" @click="deleteItem(item)">mdi-delete</v-icon>
-        </td>
       </tr>
     </template>
     <!-- <template v-slot:no-data>
@@ -316,7 +312,6 @@ export default {
       { title: 'LRN', key: 'student_lrn' },
       { title: 'Grade Level', key: 'grade_level' },
       { title: 'Strand', key: 'strand' },
-      { title: 'Actions', sortable: false },
     ],
     students: [],
     editedIndex: -1,
