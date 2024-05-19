@@ -80,6 +80,11 @@
 </template>
 
 <script>
+<<<<<<< HEAD
+import axios from 'axios';
+
+=======
+>>>>>>> origin/main
 export default {
   data: () => ({
     search: '',
@@ -172,6 +177,27 @@ export default {
 
   methods: {
     initialize() {
+<<<<<<< HEAD
+
+
+
+      axios.get('http://127.0.0.1:8888/api/student')
+        .then(response => {
+          // Handle successful response
+        let all_students = response.data;
+        var juniors = all_students.filter(function (el) {
+          return el.grade_level <= 10;
+        });
+
+        this.students = juniors;
+          console.log(response.data);
+        })
+        .catch(error => {
+          // Handle error
+          console.error('There was an error!', error);
+      });
+
+=======
       this.students = [
         {
           student_id: '2021001',
@@ -267,6 +293,7 @@ export default {
           zip_code: '77001',
         },
       ];
+>>>>>>> origin/main
     },
     editItem(item) {
       this.editedIndex = this.students.indexOf(item);

@@ -25,11 +25,19 @@
       ></v-text-field>
       
         <v-dialog v-model="dialog" max-width="1000px">
+<<<<<<< HEAD
+          
+          <template v-slot:activator="{ props }">
+            <v-btn class="mb-2 rounded-l	" color="primary" dark v-bind="props" prepend-icon="mdi-plus">Add Record</v-btn>
+          </template>
+          
+=======
       <!--
           <template v-slot:activator="{ props }">
             <v-btn class="mb-2 rounded-l	" color="primary" dark v-bind="props" prepend-icon="mdi-plus">Add Record</v-btn>
           </template>
         -->
+>>>>>>> origin/main
           <v-card >
             <v-card-title ><span class="text-h6 m-2" style="color: #2F3F64"  >{{ formTitle }}</span></v-card-title>
             <v-card-text > 
@@ -290,6 +298,13 @@
         <td>{{ item.student_lrn }}</td>
         <td>{{ item.grade_level }}</td>
         <td>{{ item.strand }}</td>
+<<<<<<< HEAD
+        <td>
+          <v-icon class="me-2" size="small" style="color: #2F3F64" @click="editItem(item)">mdi-pencil</v-icon>
+          <v-icon size="small" style="color: #2F3F64" @click="deleteItem(item)">mdi-delete</v-icon>
+        </td>
+=======
+>>>>>>> origin/main
       </tr>
     </template>
     <!-- <template v-slot:no-data>
@@ -299,9 +314,17 @@
 </template>
 
 <script>
+<<<<<<< HEAD
+import axios from 'axios';
+
+export default {
+
+
+=======
 
 export default {
   
+>>>>>>> origin/main
   data: () => ({
     search: '',
     dialog: false,
@@ -312,6 +335,10 @@ export default {
       { title: 'LRN', key: 'student_lrn' },
       { title: 'Grade Level', key: 'grade_level' },
       { title: 'Strand', key: 'strand' },
+<<<<<<< HEAD
+      { title: 'Actions', sortable: false },
+=======
+>>>>>>> origin/main
     ],
     students: [],
     editedIndex: -1,
@@ -393,6 +420,25 @@ export default {
 
   methods: {
     initialize() {
+<<<<<<< HEAD
+
+      axios.get('http://127.0.0.1:8888/api/student')
+        .then(response => {
+          // Handle successful response
+        let all_students = response.data;
+        var seniors = all_students.filter(function (el) {
+          return el.grade_level > 10;
+        });
+
+        this.students = seniors;
+        console.log(response.data);
+        })
+        .catch(error => {
+          // Handle error
+          console.error('There was an error!', error);
+    });
+  
+=======
       this.students = [
         { 
       student_id: '2021001', 
@@ -880,6 +926,7 @@ export default {
     },
 
       ];
+>>>>>>> origin/main
       this.students.forEach(student => {
   student.full_name = `${student.first_name} ${student.middle_name} ${student.last_name} ${student.extension}`.trim();
     if (student.grade_level < 11 || student.grade_level > 12) {

@@ -58,11 +58,14 @@ watchEffect(() => {
               <span class="text">Dashboard</span>
           </router-link>
         <!-- Clickable Dropdown structure -->
+<<<<<<< HEAD
+=======
         <router-link class="button" to="/consultationrecords">
           <span class="material-icons">medical_information</span>
           <span class="text">Consultation Records</span>
       </router-link>
       
+>>>>>>> origin/main
         <div class="dropdown " @click="toggleDropdown" :class="{ 'open': isDropdownOpen }">
             <button class="dropbtn">
             <span class="material-icons">dvr</span>
@@ -77,7 +80,15 @@ watchEffect(() => {
             </transition>
             
         </div>
+<<<<<<< HEAD
+        <router-link class="button" to="/consultationrecords">
+            <span class="material-icons">medical_information</span>
+            <span class="text">Consultation Records</span>
+        </router-link>
+
+=======
     
+>>>>>>> origin/main
         <router-link class="button" to="/announcement">
             <span class="material-icons">newspaper</span>
             <span class="text">Announcements</span>
