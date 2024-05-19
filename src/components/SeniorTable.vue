@@ -25,11 +25,15 @@
       ></v-text-field>
       
         <v-dialog v-model="dialog" max-width="1000px">
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 61f361d (updated_consultation-records)
           
           <template v-slot:activator="{ props }">
             <v-btn class="mb-2 rounded-l	" color="primary" dark v-bind="props" prepend-icon="mdi-plus">Add Record</v-btn>
           </template>
+<<<<<<< HEAD
 <<<<<<< HEAD
         -->
           <v-card>
@@ -39,6 +43,9 @@
 =======
           
 
+=======
+          
+>>>>>>> parent of 61f361d (updated_consultation-records)
           <v-card >
             <v-card-title ><span class="text-h6 m-2" style="color: #2F3F64"  >{{ formTitle }}</span></v-card-title>
 >>>>>>> 99edf950ab6fe4be87f9776240f488e34a9f5ca2
@@ -125,12 +132,18 @@
         <td>{{ item.student_lrn }}</td>
         <td>{{ item.grade_level }}</td>
         <td>{{ item.strand }}</td>
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 61f361d (updated_consultation-records)
         <td>
           <v-icon class="me-2" size="small" style="color: #2F3F64" @click="editItem(item)">mdi-pencil</v-icon>
           <v-icon size="small" style="color: #2F3F64" @click="deleteItem(item)">mdi-delete</v-icon>
         </td>
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 61f361d (updated_consultation-records)
       </tr>
 >>>>>>> 99edf950ab6fe4be87f9776240f488e34a9f5ca2
     </template>

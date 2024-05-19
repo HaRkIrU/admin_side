@@ -58,11 +58,14 @@ watchEffect(() => {
               <span class="text">Dashboard</span>
           </router-link>
         <!-- Clickable Dropdown structure -->
+<<<<<<< HEAD
         <router-link class="button" to="/consultationrecords">
           <span class="material-icons">medical_information</span>
           <span class="text">Consultation Records</span>
       </router-link>
     
+=======
+>>>>>>> parent of 61f361d (updated_consultation-records)
         <div class="dropdown " @click="toggleDropdown" :class="{ 'open': isDropdownOpen }">
             <button class="dropbtn">
             <span class="material-icons">dvr</span>
